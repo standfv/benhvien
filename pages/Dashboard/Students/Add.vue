@@ -3,7 +3,7 @@
     <div class="container mx-auto flex justify-center">
       <form
         style="width: 600px"
-        class="select-none mt-8 bg-white py-4 px-5 rounded"
+        class="lg:max-w-xl max-w-sm select-none mt-6 bg-white py-4 lg:mx-0 mx-2 px-5 rounded mb-6"
         @submit.prevent="submit"
       >
         <h2 class="text-2xl font-bold mb-2">Thêm học sinh</h2>

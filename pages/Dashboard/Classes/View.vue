@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container mx-auto">
-      <div class="mt-3">
+      <div class="mt-3 lg:px-0 px-2">
         <h2 class="mt-4 text-2xl font-bold text-gray-800">
           Thông tin chi tiết
         </h2>
@@ -57,18 +57,23 @@
             </div>
           </div>
         </div>
+        <student-chart :height="measureOfStudent.measures.height" :weight="measureOfStudent.measures.weight" :bmi="measureOfStudent.measures.bmi" class="my-4"/>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
+import StudentChart from "~/components/Dashboard/StudentChart"
 export default {
   layout: "dashboard",
   head() {
     return {
       title: "Xem chi tiết học sinh"
     };
+  },
+  components: {
+    StudentChart
   },
   async asyncData({ store, query, redirect }) {
     try {

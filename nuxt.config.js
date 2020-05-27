@@ -1,6 +1,6 @@
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -32,7 +32,8 @@ module.exports = {
   */
   plugins: [
     { src: "@/plugins/counter.js", ssr: false },
-    { src: "@/plugins/alert.js", ssr: false }
+    { src: "@/plugins/alert.js", ssr: false },
+    { src: "@/plugins/trend-chart.js", ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -56,7 +57,7 @@ module.exports = {
     sockets: [
       {
         name: 'home',
-        url: 'http://localhost:3112',
+        url: 'http://heacare.work',
         default: true,
         namespaces: { /* See next section */ }
       }

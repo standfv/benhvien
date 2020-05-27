@@ -1,10 +1,10 @@
 <template>
   <div class="Measure">
     <div class="container mx-auto">
-      <div class="mt-3 rounded-sm">
+      <div class="mt-3 rounded-sm lg:px-0 px-2">
         <h2 class="text-4xl font-bold text-gray-800">Xin mời bước lên máy!</h2>
-        <div class="flex flex-wrap mt-3 w-full -mx-2">
-          <div class="w-1/3 bg-white rounded p-4 list-student">
+        <div class="flex flex-wrap mt-3 w-full lg:-mx-2">
+          <div class="w-full lg:w-1/3 bg-white rounded p-4 list-student">
             <h3 class="text-lg font-bold text-gray-800 select-none mb-2">
               Danh sách học sinh
             </h3>
@@ -36,8 +36,8 @@
             </div>
             <!-- kết thúc danh sách học sinh -->
           </div>
-          <div class="w-2/3 pl-2 select-none">
-            <h2 class="px-3 text-lg mb-1 uppercase font-bold">
+          <div class="w-full lg:w-2/3 lg:pl-2 select-none">
+            <h2 class="lg:px-3 lg:mx-0 mx-1 text-lg lg:mt-0 mt-2 lg:mb-1 mb-2 uppercase font-bold">
               <span v-if="currentStudent.length > 0">
                 Đang chọn → [{{ currentStudent.split("|")[1] }} -
                 {{ currentStudent.split("|")[2] }}]
@@ -47,7 +47,7 @@
             <div class="flex flex-wrap -mx-1 overflow-hidden">
               <div
                 v-if="valid.success == null"
-                class="px-3 w-1/2 overflow-hidden"
+                class="lg:px-3 px-1 w-full lg:w-1/2 overflow-hidden"
               >
                 <div class="flex flex-col mb-3">
                   <div class="flex bg-white p-5 rounded">
@@ -123,7 +123,7 @@
               </div>
               <div
                 v-if="valid.success == null"
-                class="px-3 w-1/2 overflow-hidden bg-white p-5 rounded flex justify-center items-center"
+                class="lg:m-0 m-1 lg:mt-0 mt-3 px-3 w-full lg:w-1/2 overflow-hidden bg-white p-5 rounded flex lg:justify-center items-center"
               >
                 <div class="flex">
                   <span>
@@ -170,7 +170,7 @@
             </div>
             <div
               v-if="valid.success == null"
-              class="mt-5 pl-2 rounded flex justify-between items-center"
+              class="mt-5 pl-2 lg:px-0 px-2 lg:mb-0 mb-3 rounded flex justify-between items-center"
             >
               <div>
                 <!-- <label class="flex justify-start items-start py-2">
