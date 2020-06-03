@@ -247,16 +247,16 @@ export default {
       this.health = new healthx();
       this.valid.success = null;
     },
-    // "health.bmi": function (value) {
-    //   console.log("bmi:", value);
-    //   if (value != 0) {
-    //     if (this.autoSave === true) {
-    //       setTimeout(() => {
-    //         alert("Đã lưu");
-    //       }, 2500);
-    //     }
-    //   }
-    // },
+    "health.weight": function (value) {
+      console.log("bmi:", value);
+      let bmi = value / (this.health.height * this.health.height);
+      this.health.bmi = parseFloat(bmi).toFixed(2);
+    },
+    "health.height": function (value) {
+      console.log("bmi:", value);
+      let bmi = this.health.weight / (value * value);
+      this.health.bmi = parseFloat(bmi).toFixed(2);
+    },
     autoSave(value) {
       setTimeout(() => {
         if (value === true) {
@@ -277,13 +277,17 @@ export default {
   mounted() {
     this.socket = this.$nuxtSocket({
       name: "home"
-    }).on("measure", data => {
+    }).on("measure_height", data => {
+      console.log('w: ', data.height / 100);
       let height = data.height / 100; // cm -> m
-      let weight = data.weight;
-      let bmi = weight / (height * height);
-      this.health.weight = parseFloat(weight).toFixed(2);
       this.health.height = parseFloat(data.height).toFixed(1);
-      this.health.bmi = parseFloat(bmi).toFixed(2);
+    });
+    this.socket = this.$nuxtSocket({
+      name: "home"
+    }).on("measure_weight", data => {
+      console.log('h: ', data.weight);
+      let weight = data.weight;
+      this.health.weight = parseFloat(weight).toFixed(2);
     });
   },
   methods: {

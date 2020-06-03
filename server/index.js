@@ -58,13 +58,25 @@ async function start() {
     databaseURL: "https://revius1-1933b.firebaseio.com"
   });
   var db = admin.database();
-  var ref = db.ref("chisodo");
-  ref.on(
+  var heightRef = db.ref("chieucao");
+  heightRef.on(
     "value",
     function(snapshot) {
-      console.log(snapshot.val());
-      io.emit("measure", {
-        height: 134 ? 134 : 0,
+      console.log("height: ", snapshot.val());
+      io.emit("measure_height", {
+        height: snapshot.val() ? snapshot.val() : 0
+      });
+    },
+    function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    }
+  );
+  var weightRef = db.ref("cannang");
+  weightRef.on(
+    "value",
+    function(snapshot) {
+      console.log("weight: ", snapshot.val());
+      io.emit("measure_weight", {
         weight: snapshot.val() ? snapshot.val() : 0
       });
     },
