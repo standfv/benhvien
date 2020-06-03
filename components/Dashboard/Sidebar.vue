@@ -97,9 +97,8 @@
       ><span class="font-medium"> Quản lý học sinh </span></nuxt-link
     >
     <div class="text-xs text-gray-700 font-medium px-4">MENU PHỤ</div>
-    <nuxt-link
-      to="/dashboard/measures"
-      class="bg-transparent hover:text-teal-700 text-gray-900 flex items-center py-2 px-4 w-full my-1"
+    <a
+      class="cursor-pointer bg-transparent hover:text-teal-700 text-gray-900 flex items-center py-2 px-4 w-full my-1"
     >
       <span
         style="top: -1px"
@@ -113,11 +112,10 @@
           <path
             d="M3.94 6.5L2.22 3.64l1.42-1.42L6.5 3.94c.52-.3 1.1-.54 1.7-.7L9 0h2l.8 3.24c.6.16 1.18.4 1.7.7l2.86-1.72 1.42 1.42-1.72 2.86c.3.52.54 1.1.7 1.7L20 9v2l-3.24.8c-.16.6-.4 1.18-.7 1.7l1.72 2.86-1.42 1.42-2.86-1.72c-.52.3-1.1.54-1.7.7L11 20H9l-.8-3.24c-.6-.16-1.18-.4-1.7-.7l-2.86 1.72-1.42-1.42 1.72-2.86c-.3-.52-.54-1.1-.7-1.7L0 11V9l3.24-.8c.16-.6.4-1.18.7-1.7zM10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
           /></svg></span
-      ><span class="font-medium"> Cấu hình tài khoản </span></nuxt-link
+      ><span class="font-medium"> Cấu hình tài khoản </span></a
     >
-    <nuxt-link
-      to="/dashboard/measures"
-      class="bg-transparent hover:text-teal-700 text-gray-900 flex items-center py-2 px-4 w-full my-1"
+    <a
+      class="cursor-pointer bg-transparent hover:text-teal-700 text-gray-900 flex items-center py-2 px-4 w-full my-1"
     >
       <span
         style="top: -1px"
@@ -132,7 +130,7 @@
             fill-rule="evenodd"
             d="M4.16 4.16l1.42 1.42A6.99 6.99 0 0 0 10 18a7 7 0 0 0 4.42-12.42l1.42-1.42a9 9 0 1 1-11.69 0zM9 0h2v8H9V0z"
           /></svg></span
-      ><span class="font-medium"> Đăng xuất </span></nuxt-link
+      ><span class="font-medium"> Đăng xuất </span></a
     >
   </div>
 </template>

@@ -35,7 +35,6 @@ module.exports.listIdMeasure = async (req, res) => {
     let datas = await MEASURE.find({})
       .select("-_id student")
       .exec();
-    console.log(datas);
     res.json({
       message: "success",
       results: datas
@@ -53,7 +52,6 @@ module.exports.infoOfIdStudent = async (req, res) => {
       .sort({ createAt: -1 })
       .lean()
       .exec();
-    console.log(datas);
     res.json({
       message: "success",
       results: datas

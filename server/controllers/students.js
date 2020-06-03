@@ -35,7 +35,6 @@ module.exports.infoOfIdStudent = async (req, res) => {
     let datas = await STUDENT.findOne({ _id: req.params.idStudent })
       .lean()
       .exec();
-    console.log(datas);
     res.json({
       message: "success",
       results: datas

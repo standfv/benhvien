@@ -58,7 +58,7 @@
         </ul>
       </nav>
       <nuxt-link
-        to="/login"
+        to="/auth/login"
         class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded"
       >
         Đăng nhập

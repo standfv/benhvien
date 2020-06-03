@@ -51,14 +51,27 @@ async function start() {
   app.use("/api/students", students);
   const measures = require("./routers/measures");
   app.use("/api/measures", measures);
-
-  app.get("/api/measure", (req, res, next) => {
-    io.emit("measure", {
-      height: req.query.chieucao ? req.query.chieucao : 0,
-      weight: req.query.cannang ? req.query.cannang : 0
-    });
-    res.send("HeaCare.Work API");
+  var admin = require("firebase-admin");
+  var serviceAccount = require("./firebase.json");
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://revius1-1933b.firebaseio.com"
   });
+  var db = admin.database();
+  var ref = db.ref("chisodo");
+  ref.on(
+    "value",
+    function(snapshot) {
+      console.log(snapshot.val());
+      io.emit("measure", {
+        height: 134 ? 134 : 0,
+        weight: snapshot.val() ? snapshot.val() : 0
+      });
+    },
+    function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    }
+  );
   app.use(nuxt.render);
 
   // Listen the server

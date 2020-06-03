@@ -32,7 +32,7 @@
               Khối {{ item.shape }}
             </td>
             <td style="width: 18rem;" class="w-1/4 text-left py-3 px-4 flex">
-              <a :href="'/dashboard/classes/view?student=' + item._id" class="focus:outline-none mx-1 bg-teal-500 hover:bg-teal-600 text-white text-sm font-bold py-1 px-4 rounded" target="_blank">Xem chi tiết</a>
+              <a :href="'/dashboard/students?classes=2A'" class="focus:outline-none mx-1 bg-teal-500 hover:bg-teal-600 text-white text-sm font-bold py-1 px-4 rounded" target="_blank">Xem chi tiết</a>
               <button class="focus:outline-none mx-1 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-1 px-4 rounded">Sửa</button>
               <button class="focus:outline-none ml-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-1 px-4 rounded">Xóa</button>
             </td>
