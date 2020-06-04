@@ -38,11 +38,13 @@
           </div>
           <div class="w-full lg:w-2/3 lg:pl-2 select-none">
             <h2 class="lg:px-3 lg:mx-0 mx-1 text-lg lg:mt-0 mt-2 lg:mb-1 mb-2 uppercase font-bold">
+              <div>
               <span v-if="currentStudent.length > 0">
-                Đang chọn → [{{ currentStudent.split("|")[1] }} -
+                Chọn → [{{ currentStudent.split("|")[1] }} -
                 {{ currentStudent.split("|")[2] }}]
               </span>
-              <span v-else> Đang chọn: Không có </span>
+              <span v-else> Chọn: Không có </span>
+              </div>
             </h2>
             <div class="flex flex-wrap -mx-1 overflow-hidden">
               <div
@@ -87,7 +89,7 @@
                         Chiều cao
                       </span>
                       <div class="block text-5xl font-bold">
-                        {{ health.height }}
+                        {{ health.height <= 40 ? 0 : health.height }}
                         <small>cm</small>
                       </div>
                     </div>
@@ -114,7 +116,7 @@
                         Cân nặng
                       </span>
                       <div class="block text-5xl font-bold">
-                        {{ health.weight }}
+                        {{ health.weight <= 10 ? 0 : health.weight }}
                         <small>kg</small>
                       </div>
                     </div>
@@ -151,7 +153,7 @@
                       BMI
                     </span>
                     <div class="block text-5xl font-bold break-all">
-                      {{ health.bmi }}
+                      {{ health.bmi == Infinity || health.bmi <= 10 ? 0 : health.bmi }}
                     </div>
                   </div>
                 </div>
@@ -172,7 +174,9 @@
               v-if="valid.success == null"
               class="mt-5 pl-2 lg:px-0 px-2 lg:mb-0 mb-3 rounded flex justify-between items-center"
             >
-              <div>
+              <div class="flex items-center uppercase font-bold pl-4">
+                <span v-if="socket" class="text-green-500">[Đã kết nối máy chủ]</span>
+                <span v-else class="text-red-500">[Chưa kết nối (F5)]</span>
                 <!-- <label class="flex justify-start items-start py-2">
                   <div
                     class="bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500"
@@ -196,7 +200,7 @@
               </div>
               <div>
                 <button
-                  v-if="health.bmi == 0"
+                  v-if="health.bmi == 0 || health.bmi == Infinity"
                   class="opacity-50 cursor-default bg-teal-500 focus:outline-none text-white font-bold py-2 px-4 rounded"
                 >
                   Lưu chỉ số
@@ -235,6 +239,7 @@ export default {
   data() {
     return {
       health: new healthx(),
+      socket: false,
       autoSave: false,
       currentStudent: "",
       valid: {
@@ -247,14 +252,21 @@ export default {
       this.health = new healthx();
       this.valid.success = null;
     },
-    "health.weight": function (value) {
-      console.log("bmi:", value);
-      let bmi = value / (this.health.height * this.health.height);
+    "health.weight": function (w) {
+      console.log("w_weight: " , parseFloat(w));
+      console.log("w_height: ", parseFloat(this.health.height));
+      let height = (this.health.height ? this.health.height : 0) / 100;
+      let bmi = parseFloat(w) / (parseFloat(height) * parseFloat(height));
+      console.log("w_bmi:", bmi);
       this.health.bmi = parseFloat(bmi).toFixed(2);
     },
-    "health.height": function (value) {
-      console.log("bmi:", value);
-      let bmi = this.health.weight / (value * value);
+    "health.height": function (h) {
+      console.log("h_height: " , parseFloat(h));
+      console.log("h_weight: ", parseFloat(this.health.weight));
+      let height = h / 100; // cm -> m
+      let weight = this.health.weight ? this.health.weight : 0;
+      let bmi = parseFloat(weight) / (height * height);
+      console.log("h_bmi:", bmi);
       this.health.bmi = parseFloat(bmi).toFixed(2);
     },
     autoSave(value) {
@@ -277,17 +289,21 @@ export default {
   mounted() {
     this.socket = this.$nuxtSocket({
       name: "home"
+    }).on("connect_sk", data => {
+      console.log(data);
+      this.socket = data;
+    });
+    this.socket = this.$nuxtSocket({
+      name: "home"
     }).on("measure_height", data => {
-      console.log('w: ', data.height / 100);
-      let height = data.height / 100; // cm -> m
+      console.log('h: ', data.height);
       this.health.height = parseFloat(data.height).toFixed(1);
     });
     this.socket = this.$nuxtSocket({
       name: "home"
     }).on("measure_weight", data => {
-      console.log('h: ', data.weight);
-      let weight = data.weight;
-      this.health.weight = parseFloat(weight).toFixed(2);
+      console.log('w: ', data.weight);
+      this.health.weight = parseFloat(data.weight).toFixed(2);
     });
   },
   methods: {

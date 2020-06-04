@@ -89,6 +89,7 @@ async function start() {
   // Listen the server
   io.on("connection", socket => {
     console.log("a user connected");
+    socket.emit("connect_sk", true);
   });
 
   http.listen(port, host);
